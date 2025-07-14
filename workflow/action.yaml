@@ -73,7 +73,7 @@ runs:
       run: |
         snakemake \
             --configfile $WORKFLOW_CONFIG \
-            --snakefile {{ inputs.snakemake }} \
+            --snakefile ${{ inputs.snakemake }} \
             ${{ inputs.target }} 
       
     - name: Generate report
@@ -82,7 +82,7 @@ runs:
       run:
         snakemake --report /tmp/report.html \
             --configfile $WORKFLOW_CONFIG \
-            --snakefile {{ inputs.snakemake }} \
+            --snakefile ${{ inputs.snakemake }} \
             ${{ inputs.target }} 
         
     - name: Upload report
