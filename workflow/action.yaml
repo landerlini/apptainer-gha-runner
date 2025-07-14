@@ -1,0 +1,65 @@
+name: 'Apptainer Runner'
+description: | 
+    Run commands inside a Apptainer container (rather than Docker).
+
+    Apptainer (or singularity) must be installed in the runner image.
+
+inputs:
+  target:
+    description: 'Target of the Snakemake workflow'
+    required: true
+
+  profile:
+    description: 'Profile of snakemake'
+    required: true
+
+  config:
+    description: 'Configuration to execute the action'
+    default: "ubuntu:latest"
+
+  upload_report:
+    description: 'Whether to generate and upload the report'
+    required: false
+    default: 'false'
+
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set paths
+      run: |
+        echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> GITHUB_ENV
+        echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM" >> GITHUB_ENV
+
+    - name: Creates directories 
+      shell: bash
+      run: |
+        mkdir -p $SNAKEMAKE_PROFILE
+        cat <<EOF > $SNAKEMAKE_PROFILE/config.yaml
+        ${{ inputs.profile }}
+        EOF
+
+        mkdir -p $WORKFLOW_CONFIG
+        cat <<EOF > $WORKFLOW_CONFIG/config.yaml
+        ${{ inputs.config }}
+        EOF
+        
+    - name: Execute workflow
+      run: |
+        snakemake --configfile $WORKFLOW_CONFIG/config.yaml {{ inputs.target }}
+      
+    - name: Generate report
+      if: ${{ inputs.upload_report == 'true' }}
+      run:
+        snakemake --configfile $WORKFLOW_CONFIG {{ inputs.target }} --report /tmp/report.html
+        
+    - name: Upload report
+      if: ${{ inputs.upload_report == 'true' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: html-report
+        path: /tmp/report.html
+        
+    
+
+

@@ -9,8 +9,6 @@ inputs:
     description: 'Command to execute inside the container'
     required: true
 
-  type:
-    description: 'Type of job: container (running apptainer) or workflow (running Snakemake)'
 
   image:
     description: 'Image to execute the action'
