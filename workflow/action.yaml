@@ -21,10 +21,10 @@ inputs:
     default: |
         key: value
 
-  upload_report:
-    description: 'Whether to generate and upload the report'
+  report:
+    description: 'Name of the Snakemake report (if any)'
     required: false
-    default: 'false'
+    default: ''
 
   workdir:
     description: 'Directory from which to launch Snakemake'
@@ -79,20 +79,20 @@ runs:
       
     - name: Generate report
       shell: bash
-      if: ${{ inputs.upload_report == 'true' }}
+      if: ${{ inputs.report != '' }}
       run:
         cd ${{ inputs.workdir }}
-        snakemake --report /tmp/report.html \
+        snakemake --report /tmp/${{ inputs.report }}.html \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \
             ${{ inputs.target }} 
         
     - name: Upload report
-      if: ${{ inputs.upload_report == 'true' }}
+      if: ${{ inputs.report != '' }}
       uses: actions/upload-artifact@v4
       with:
-        name: html-report
-        path: /tmp/report.html
+        name: ${{ inputs.report }}
+        path: /tmp/${{ input.report }}.html
         
     
 
