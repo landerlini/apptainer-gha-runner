@@ -61,7 +61,7 @@ runs:
       shell: bash
       if: ${{ inputs.upload_report == 'true' }}
       run:
-        snakemake --configfile $WORKFLOW_CONFIG {{ inputs.target }} --report /tmp/report.html
+        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }} --report /tmp/report.html
         
     - name: Upload report
       if: ${{ inputs.upload_report == 'true' }}
