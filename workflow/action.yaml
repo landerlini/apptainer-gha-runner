@@ -76,6 +76,7 @@ runs:
     - name: Execute workflow
       shell: bash
       run: |
+        cat ${{ inputs.snakefile }} 
         snakemake \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \
