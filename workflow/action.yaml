@@ -67,16 +67,11 @@ runs:
         ${{ inputs.config }}
         EOF
         
-    - name: Move to workdir
-      shell: bash
-      run: |
-        echo "PREVDIR=$PWD" >> $GITHUB_ENV
-        cd ${{ inputs.workdir }}
             
     - name: Execute workflow
       shell: bash
       run: |
-        cat ${{ inputs.snakefile }} 
+        cd ${{ inputs.workdir }}
         snakemake \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \
@@ -86,6 +81,7 @@ runs:
       shell: bash
       if: ${{ inputs.upload_report == 'true' }}
       run:
+        cd ${{ inputs.workdir }}
         snakemake --report /tmp/report.html \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \
@@ -98,10 +94,6 @@ runs:
         name: html-report
         path: /tmp/report.html
         
-    - name: Move back to repo
-      shell: bash
-      run: |
-        cd $PREVDIR
     
 
 
