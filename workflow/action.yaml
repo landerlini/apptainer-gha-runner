@@ -55,7 +55,7 @@ runs:
     - name: Execute workflow
       shell: bash
       run: |
-        snakemake --configfile $WORKFLOW_CONFIG {{ inputs.target }}
+        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }}
       
     - name: Generate report
       shell: bash
