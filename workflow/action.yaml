@@ -71,16 +71,19 @@ runs:
     - name: Execute workflow
       shell: bash
       run: |
-        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }} \
-            --snakefile {{ inputs.snakemake }}
+        snakemake \
+            --configfile $WORKFLOW_CONFIG \
+            --snakefile {{ inputs.snakemake }} \
+            ${{ inputs.target }} 
       
     - name: Generate report
       shell: bash
       if: ${{ inputs.upload_report == 'true' }}
       run:
-        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }} \
-            --report /tmp/report.html \
-            --snakefile {{ inputs.snakemake }}
+        snakemake --report /tmp/report.html \
+            --configfile $WORKFLOW_CONFIG \
+            --snakefile {{ inputs.snakemake }} \
+            ${{ inputs.target }} 
         
     - name: Upload report
       if: ${{ inputs.upload_report == 'true' }}
