@@ -44,7 +44,7 @@ runs:
         ${{ inputs.profile }}
         EOF
 
-    - id: Create config
+    - id: create-config
       shell: bash
       run: |
         mkdir -p $(dirname $WORKFLOW_CONFIG)
