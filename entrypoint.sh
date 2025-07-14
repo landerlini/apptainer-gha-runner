@@ -29,7 +29,7 @@ cd /tmp/working-dir
 
 
 ## Execute the container 
-echo apptainer exec \
+apptainer exec \
     -B /cvmfs:/cvmfs:ro \
     -B $TMPFILE:/entrypoint.sh:ro \
     -B $REPOSITORY_HOST_PATH:$REPOSITORY_CONTAINER_PATH \
