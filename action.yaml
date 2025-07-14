@@ -29,7 +29,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - shell: bash
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Execute user's code
+      shell: bash
       run: |
         RUNNER_IMAGE=${{ inputs.image }} \
         CONTAINER_SHELL=${{ inputs.shell }} \
