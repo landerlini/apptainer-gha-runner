@@ -11,11 +11,14 @@ inputs:
 
   profile:
     description: 'Profile of snakemake'
-    required: true
+    required: false
+    default: |
+        cores: 1
 
   config:
-    description: 'Configuration to execute the action'
-    default: "ubuntu:latest"
+    description: 'Configuration to execute the workflow'
+    required: false
+    default: ""
 
   upload_report:
     description: 'Whether to generate and upload the report'
