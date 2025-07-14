@@ -18,7 +18,8 @@ inputs:
   config:
     description: 'Configuration to execute the workflow'
     required: false
-    default: ""
+    default: |
+        key: value
 
   upload_report:
     description: 'Whether to generate and upload the report'
