@@ -32,9 +32,9 @@ runs:
     - 
       shell: bash
       run: |
-        RUNNER_IMAGE=${{ input.image }} \
-        CONTAINER_SHELL=${{ input.shell }} \
-        ./singularity-runner.sh ${{ input.apptainer_args }} << EOF 
+        RUNNER_IMAGE=${{ inputs.image }} \
+        CONTAINER_SHELL=${{ inputs.shell }} \
+        ./singularity-runner.sh ${{ inputs.apptainer_args }} << EOF 
         ${{ inputs.run }} 
         EOF
         
