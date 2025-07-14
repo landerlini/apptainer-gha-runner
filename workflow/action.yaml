@@ -65,6 +65,7 @@ runs:
     - name: Move to workdir
       shell: bash
       run: |
+        echo "PREVDIR=$PWD" >> $GITHUB_ENV
         cd ${{ inputs.workdir }}
             
     - name: Execute workflow
@@ -88,6 +89,10 @@ runs:
         name: html-report
         path: /tmp/report.html
         
+    - name: Move back to repo
+      shell: bash
+      run: |
+        cd $PREVDIR
     
 
 
