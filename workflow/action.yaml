@@ -30,6 +30,7 @@ runs:
   using: 'composite'
   steps:
     - name: Set paths
+      shell: bash
       run: |
         echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> GITHUB_ENV
         echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM" >> GITHUB_ENV
@@ -48,10 +49,12 @@ runs:
         EOF
         
     - name: Execute workflow
+      shell: bash
       run: |
         snakemake --configfile $WORKFLOW_CONFIG/config.yaml {{ inputs.target }}
       
     - name: Generate report
+      shell: bash
       if: ${{ inputs.upload_report == 'true' }}
       run:
         snakemake --configfile $WORKFLOW_CONFIG {{ inputs.target }} --report /tmp/report.html
