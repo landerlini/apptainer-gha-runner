@@ -46,6 +46,11 @@ runs:
         echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> $GITHUB_ENV
         echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM/config.yaml" >> $GITHUB_ENV
 
+    - name: Report snakemake version
+      shell: bash
+      run: |
+        snakemake --version >> $GITHUB_STEP_SUMMARY
+
     - name: Create profile
       shell: bash
       run: |
