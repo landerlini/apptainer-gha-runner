@@ -1,6 +1,6 @@
 #!/bin/bash
 ## Intended usage:
-##  RUNNER_IMAGE=alpine:lates CONTAINER_SHELL=/bin/ash singularity-runner.sh -B /volume << EOF
+##  RUNNER_IMAGE=alpine:latest CONTAINER_SHELL=/bin/ash singularity-runner.sh -B /volume << EOF
 ##  echo "Hello world"
 ##  EOF
 
@@ -32,7 +32,6 @@ apptainer exec \
     -B /cvmfs:/cvmfs:ro \
     -B $TMPFILE:/entrypoint.sh:ro \
     -B $REPOSITORY_DIR \
-    $@ \
     $RUNNER_IMAGE \
     $CONTAINER_SHELL $TMPFILE
 
