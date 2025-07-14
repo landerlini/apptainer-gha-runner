@@ -26,6 +26,16 @@ inputs:
     required: false
     default: 'false'
 
+  workdir:
+    description: 'Directory from which to launch Snakemake'
+    required: false
+    default: '.'
+  
+  snakefile:
+    description: 'Path to the Snakefile (absolute or relateive to workdir)'
+    required: false
+    default: 'Snakefile'
+
 
 runs:
   using: 'composite'
@@ -52,16 +62,24 @@ runs:
         ${{ inputs.config }}
         EOF
         
+    - name: Move to workdir
+      shell: bash
+      run: |
+        cd ${{ inputs.workdir }}
+            
     - name: Execute workflow
       shell: bash
       run: |
-        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }}
+        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }} \
+            --snakefile {{ inputs.snakemake }}
       
     - name: Generate report
       shell: bash
       if: ${{ inputs.upload_report == 'true' }}
       run:
-        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }} --report /tmp/report.html
+        snakemake --configfile $WORKFLOW_CONFIG ${{ inputs.target }} \
+            --report /tmp/report.html \
+            --snakefile {{ inputs.snakemake }}
         
     - name: Upload report
       if: ${{ inputs.upload_report == 'true' }}
