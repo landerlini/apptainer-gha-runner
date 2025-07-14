@@ -32,7 +32,7 @@ cd /tmp/working-dir
 echo apptainer exec \
     -B /cvmfs:/cvmfs:ro \
     -B $TMPFILE:/entrypoint.sh:ro \
-    -B $REPOSITORY_DIR \
+    -B $REPOSITORY_HOST_PATH:$REPOSITORY_CONTAINER_PATH \
     $RUNNER_IMAGE \
     $CONTAINER_SHELL $TMPFILE
 
