@@ -40,9 +40,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Set paths
+    - name: Set configuration paths
       shell: bash
       run: |
+        # Set configuration paths
         echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> $GITHUB_ENV
         echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM/config.yaml" >> $GITHUB_ENV
 
@@ -59,7 +60,7 @@ runs:
         ${{ inputs.profile }}
         EOF
 
-    - id: create-config
+    - name: create-config
       shell: bash
       run: |
         mkdir -p $(dirname $WORKFLOW_CONFIG)
