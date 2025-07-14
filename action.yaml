@@ -32,8 +32,8 @@ runs:
     - name: Execute user's code
       shell: bash
       run: |
-        RUNNER_IMAGE=${{ inputs.image }} \
-        CONTAINER_SHELL=${{ inputs.shell }} \
+        RUNNER_IMAGE="${{ inputs.image }}" \
+        CONTAINER_SHELL="${{ inputs.shell }}" \
         ${{ github.action_path }}/entrypoint.sh ${{ inputs.apptainer_args }} << EOF 
         ${{ inputs.run }} 
         EOF
