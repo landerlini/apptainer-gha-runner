@@ -29,8 +29,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - 
-      shell: bash
+    - shell: bash
       run: |
         RUNNER_IMAGE=${{ inputs.image }} \
         CONTAINER_SHELL=${{ inputs.shell }} \
