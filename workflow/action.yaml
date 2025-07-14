@@ -32,8 +32,8 @@ runs:
     - name: Set paths
       shell: bash
       run: |
-        echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> GITHUB_ENV
-        echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM" >> GITHUB_ENV
+        echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> $GITHUB_ENV
+        echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM" >> $GITHUB_ENV
 
     - name: Creates directories 
       shell: bash
