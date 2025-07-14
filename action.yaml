@@ -33,7 +33,7 @@ runs:
       run: |
         RUNNER_IMAGE=${{ inputs.image }} \
         CONTAINER_SHELL=${{ inputs.shell }} \
-        ./singularity-runner.sh ${{ inputs.apptainer_args }} << EOF 
+        ./entrypoint.sh ${{ inputs.apptainer_args }} << EOF 
         ${{ inputs.run }} 
         EOF
         
