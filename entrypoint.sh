@@ -20,22 +20,21 @@ TMPFILE=/tmp/runner-cmd/$RANDOM.sh
 
 ## Create the directory and initialize the file 
 mkdir -p $(dirname $TMPFILE)
-echo "cd /$REPOSITORY_CONTAINER_PATH" > \$TMPFILE
-cat >> \$TMPFILE
-echo \$TMPFILE
+echo "cd /$REPOSITORY_CONTAINER_PATH" > $TMPFILE
+cat >> $TMPFILE
 
 ## Moves to a certainly-writable area
 mkdir /tmp/working-dir
 cd /tmp/working-dir
 
 ## Execute the container 
-apptainer exec \\
-    -B /cvmfs:/cvmfs:ro \\
-    -B $TMPFILE:/entrypoint.sh:ro \\
-    -B $REPOSITORY_DIR \\
-    $@ \\
-    $RUNNER_IMAGE \\
-    $CONTAINER_SHELL /entrypoint.sh \\
+apptainer exec \
+    -B /cvmfs:/cvmfs:ro \
+    -B $TMPFILE:/entrypoint.sh:ro \
+    -B $REPOSITORY_DIR \
+    $@ \
+    $RUNNER_IMAGE \
+    $CONTAINER_SHELL $TMPFILE
 
 ## Clean up
 rm $TMPFILE
