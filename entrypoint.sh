@@ -27,10 +27,9 @@ cat >> $TMPFILE
 mkdir /tmp/working-dir
 cd /tmp/working-dir
 
-echo "Runner image: $RUNNER_IMAGE"
 
 ## Execute the container 
-apptainer exec \
+echo apptainer exec \
     -B /cvmfs:/cvmfs:ro \
     -B $TMPFILE:/entrypoint.sh:ro \
     -B $REPOSITORY_DIR \
