@@ -81,7 +81,7 @@ runs:
     - name: Generate report
       shell: bash
       if: ${{ inputs.report != '' }}
-      run:
+      run: |
         cd ${{ inputs.workdir }}
         snakemake --report /tmp/${{ inputs.report }}.html \
             --configfile $WORKFLOW_CONFIG \
