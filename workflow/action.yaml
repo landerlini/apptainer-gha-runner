@@ -35,7 +35,7 @@ runs:
         echo "SNAKEMAKE_PROFILE=/tmp/snakemake-profiles/profile-gha-$RANDOM" >> $GITHUB_ENV
         echo "WORKFLOW_CONFIG=/tmp/workflow-configs/config-gha-$RANDOM" >> $GITHUB_ENV
 
-    - name: Creates directories 
+    - name: Create profile
       shell: bash
       run: |
         mkdir -p $SNAKEMAKE_PROFILE
@@ -43,6 +43,10 @@ runs:
         ${{ inputs.profile }}
         EOF
 
+    - name: Create config
+      if: ${{ inputs.config == 'true' }}
+      shell: bash
+      run: |
         mkdir -p $WORKFLOW_CONFIG
         cat <<EOF > $WORKFLOW_CONFIG/config.yaml
         ${{ inputs.config }}
