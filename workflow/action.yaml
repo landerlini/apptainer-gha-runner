@@ -44,11 +44,11 @@ runs:
         ${{ inputs.profile }}
         EOF
 
-    - name: Create config
+    - id: Create config
       shell: bash
       run: |
         mkdir -p $(dirname $WORKFLOW_CONFIG)
-        cat <<EOF > $WORKFLOW_CONFIG/config.yaml
+        cat <<EOF > $WORKFLOW_CONFIG
         ${{ inputs.config }}
         EOF
         
