@@ -24,7 +24,7 @@ echo "cd /$REPOSITORY_CONTAINER_PATH" > $TMPFILE
 cat >> $TMPFILE
 
 ## Moves to a certainly-writable area
-mkdir /tmp/working-dir
+mkdir -p /tmp/working-dir
 cd /tmp/working-dir
 
 
