@@ -27,12 +27,16 @@ cat >> $TMPFILE
 mkdir -p /tmp/working-dir
 cd /tmp/working-dir
 
+## Prepares a shared directory for artifacts
+mkdir -p /tmp/artifacts
+
 
 ## Execute the container 
 apptainer exec \
     -B /cvmfs:/cvmfs:ro \
     -B $TMPFILE:/entrypoint.sh:ro \
     -B $REPOSITORY_HOST_PATH:$REPOSITORY_CONTAINER_PATH \
+    -B /tmp/artifacts:/artifacts \
     $RUNNER_IMAGE \
     $CONTAINER_SHELL $TMPFILE
 
