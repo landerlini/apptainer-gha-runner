@@ -1,0 +1,42 @@
+name: 'Apptainer Runner'
+description: | 
+    Run commands inside a Apptainer container (rather than Docker).
+
+    Apptainer (or singularity) must be installed in the runner image.
+
+inputs:
+  run:
+    description: 'Command to execute inside the container'
+    required: true
+
+  image:
+    description: 'Image to execute the action'
+    default: "ubuntu:latest"
+
+  shell:
+    description: 'Shell to execute the action'
+    default: "/bin/bash"
+
+  container_shell:
+    description: 'Shell to execute the action'
+    default: "/bin/bash"
+
+  apptainer_args:
+    description: 'Apptainer arguments'
+    default: ""
+
+
+runs:
+  using: 'composite'
+  steps:
+    - 
+      shell: bash
+      run: |
+        RUNNER_IMAGE=${{ input.image }} \
+        CONTAINER_SHELL=${{ input.shell }} \
+        ./singularity-runner.sh ${{ input.apptainer_args }} << EOF 
+        ${{ inputs.run }} 
+        EOF
+        
+    
+
