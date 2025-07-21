@@ -30,6 +30,11 @@ inputs:
     description: 'Directory from which to launch Snakemake'
     required: false
     default: '.'
+
+  cachedir:
+    description: 'Some medium-persistency directory used for apptainer caching'
+    required: false
+    default: '/cache'
   
   snakefile:
     description: 'Path to the Snakefile (absolute or relateive to workdir)'
@@ -60,7 +65,7 @@ runs:
         ${{ inputs.profile }}
         EOF
 
-    - name: create-config
+    - name: Create config
       shell: bash
       run: |
         mkdir -p $(dirname $WORKFLOW_CONFIG)
@@ -73,6 +78,14 @@ runs:
       shell: bash
       run: |
         cd ${{ inputs.workdir }}
+
+        unset SINGULARITY_BIND
+        unset APPTAINER_BIND 
+        unset SINGULARITY_NO_EVAL 
+        unset APPTAINER_NO_EVAL 
+        export SINGULARITY_CACHEDIR=${{ inputs.cachedir }}
+        export APPTAINER_CACHEDIR=${{ inputs.cachedir }}
+
         snakemake \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \
@@ -83,6 +96,14 @@ runs:
       if: ${{ inputs.report != '' }}
       run: |
         cd ${{ inputs.workdir }}
+
+        unset SINGULARITY_BIND
+        unset APPTAINER_BIND 
+        unset SINGULARITY_NO_EVAL 
+        unset APPTAINER_NO_EVAL 
+        export SINGULARITY_CACHEDIR=${{ inputs.cachedir }}
+        export APPTAINER_CACHEDIR=${{ inputs.cachedir }}
+
         snakemake --report /tmp/${{ inputs.report }}.html \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \

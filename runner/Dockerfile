@@ -39,9 +39,11 @@ RUN python3 --version && \
     python3.13 -m pip install \
         --root-user-action=ignore --disable-pip-version-check --no-cache-dir \
         "snakemake>=9" \
+        "pygments" \
         snakemake-storage-plugin-s3 \
         git+https://github.com/landerlini/snakemake-storage-plugin-webdav.git \
-        git+https://github.com/landerlini/snakemake-storage-plugin-fs.git
+        git+https://github.com/landerlini/snakemake-storage-plugin-fs.git \
+        git+https://github.com/landerlini/snakemake-storage-helper.git 
 
 
 # Switch to root for Apptainer installation
