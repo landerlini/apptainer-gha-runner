@@ -104,7 +104,7 @@ runs:
         export SINGULARITY_CACHEDIR=${{ inputs.cachedir }}
         export APPTAINER_CACHEDIR=${{ inputs.cachedir }}
 
-        snakemake --report /tmp/${{ inputs.report }}.html \
+        snakemake --report /tmp/${{ inputs.report }}.zip \
             --configfile $WORKFLOW_CONFIG \
             --snakefile ${{ inputs.snakefile }} \
             ${{ inputs.target }} 
@@ -114,8 +114,6 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.report }}
-        path: /tmp/${{ inputs.report }}.html
+        path: /tmp/${{ inputs.report }}.zip
         
     
-
-
