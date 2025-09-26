@@ -32,7 +32,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python and Snakemake 
-COPY --from=python:3.13 /usr/local /usr/local
+COPY --from=python:3.13-bookworm /usr/local /usr/local
 
 RUN python3 --version && \
     python3.13 -m ensurepip && \
